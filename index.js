@@ -14,9 +14,10 @@ import { checkAuth, handleValidationErrors } from './utils/index.js'
 import { UserController } from './controllers/index.js'
 
 mongoose
-  .connect(
-    'mongodb+srv://admin:vkp8elwc@cluster0.oqdlymr.mongodb.net/forms_?retryWrites=true&w=majority'
-  )
+  .connect(process.env.MONGODB_URI)
+  // .connect(
+  //   'mongodb+srv://admin:vkp8elwc@cluster0.oqdlymr.mongodb.net/forms_?retryWrites=true&w=majority'
+  // )
   .then(() => console.log('DB ok'))
   .catch(err => console.log('DB error ', err))
 
@@ -60,7 +61,7 @@ app.post('/upload', upload.single('image'), (req, res) => {
   })
 })
 
-app.listen(4000, err => {
+app.listen(process.env.PORT || 4000, err => {
   if (err) {
     return console.log(err)
   }
